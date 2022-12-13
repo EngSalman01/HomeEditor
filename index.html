@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Floor Planner</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/print.css" />
+</head>
+
+<body style="background:#f2eee5;margin:0;padding:0;">
+
+  <div id="toprint">
+
+      <header>Floor Planner Version 1</header>
+
+      <svg id="lin" viewBox="0 0 1100 700"  preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg" style="z-index:2;margin:0;padding:0;width:100vw;height:100vh;position:absolute;top:0;left:0;right:0;bottom:0">
+
+        <defs>
+          <linearGradient id="gradientRed" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#e65d5e" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#e33b3c" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientYellow" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#FDEB71" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#F8D800" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientGreen" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#c0f7d9" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#6ce8a3" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientSky" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#c4e0f4" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#87c8f7" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientOrange" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#f9ad67" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#f97f00" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientWhite" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#f0f0f0" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientGrey" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#666" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#aaa" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientBlue" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#4f72a6" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#365987" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientPurple" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#E2B0FF" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#9F44D3" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientPink" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#f6c4dd" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#f699c7" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientBlack" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#3c3b3b" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="gradientNeutral" x1="0%" y1="0%" x2="100%" y2="100%" spreadMethod="pad">
+            <stop offset="0%"   stop-color="#dbc6a0" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#c69d56" stop-opacity="1"/>
+          </linearGradient>
+
+          
+        </defs>
+        <g id="boxgrid">
+          <rect width="8000" height="5000" x="-3500" y="-2000" fill="url(#grid)" />
+        </g>
+        <g id="boxpath"></g>
+        <g id="boxSurface"></g>
+        <g id="boxRoom"></g>
+        <g id="boxwall"></g>
+        <g id="boxcarpentry"></g>
+        <g id="boxEnergy"></g>
+        <g id="boxFurniture"></g>
+        <g id="boxbind"></g>
+        <g id="boxArea"></g>
+        <g id="boxRib"></g>
+        <g id="boxScale"></g>
+        <g id="boxText"></g>
+        <g id="boxDebug"></g>
+      </svg>
+
+      <div id="areaValue"></div>
+
+      <div id="reportTools" class="leftBox" style="width:500px;overflow-y: scroll;overflow-x: hidden">
+        <h2><i class="fa fa-calculator" aria-hidden="true"></i> Report plan.</h2>
+        <br/><br/>
+        <h2 class="toHide" id="reportTotalSurface" style="display:none"></h2>
+        <h2 class="toHide" id="reportNumberSurface" style="display:none"></h2>
+        <hr/>
+        <section id="reportRooms" class="toHide" style="display:none">
+        </section>
+        <button class="btn btn-info fully" style="margin-top:50px" onclick="$('#reportTools').hide('500', function(){$('#panel').show(300);});mode = 'select_mode';"><i class="fa fa-2x fa-backward" aria-hidden="true" ></i></button>
+      </div>
+
+
+
+      <div id="objBoundingBox" class="leftBox">
+        <h2>Modify object</h2>
+        <hr/>
+        <section id="objBoundingBoxScale">
+          <p>Width <span id="bboxWidthScale"></span> : <span id="bboxWidthVal"></span> cm</span></p>
+          <input type="range" id="bboxWidth" step="1" class="range" />
+          <p>Length <span id="bboxHeightScale"></span> : <span id="bboxHeightVal"></span> cm</span></p>
+          <input type="range" id="bboxHeight" step="1" class="range" />
+        </section>
+
+        <section id="objBoundingBoxRotation">
+        <p><i class="fa fa-compass" aria-hidden="true"></i> Rotation : <span id="bboxRotationVal"></span> °</p>
+        <input type="range" id="bboxRotation" step="1" class="range" min="-180" max = "180"/>
+        </section>
+
+
+
+
+        <br/><br/>
+        <button class="btn btn-danger fully" id="bboxTrash"><i class="fa fa-2x fa-trash-o" aria-hidden="true"></i></button>
+        <button class="btn btn-info" style="margin-top:100px" onclick="fonc_button('select_mode');$('#boxinfo').html('Selection mode');$('#objBoundingBox').hide(100);$('#panel').show(200);binder.graph.remove();delete binder;"><i class="fa fa-2x fa-backward" aria-hidden="true" ></i></button>
+      </div>
+
+      <div id="objTools" class="leftBox">
+        <h2>Modify door/window</h2>
+        <hr/>
+        <ul class="list-unstyled">
+          <br/><br/>
+          <li><button class="btn btn-light shadow fully" id="objToolsHinge">Reverse hinges</button></li>
+
+          <p>Width [<span id="doorWindowWidthScale"></span>] : <span id="doorWindowWidthVal"></span> cm</span></p>
+          <input type="range" id="doorWindowWidth" step="1" class="range" />
+        <br/>
+        <li><button class="btn btn-danger fully objTrash"><i class="fa fa-2x fa-trash-o" aria-hidden="true"></i></button></li>
+        <li><button class="btn btn-info" style="margin-top:100px" onclick="fonc_button('select_mode');$('#boxinfo').html('Selection mode');$('#objTools').hide('100');$('#panel').show('200');binder.graph.remove();delete binder;rib();"><i class="fa fa-2x fa-backward" aria-hidden="true" ></i></button></li>
+        </ul>
+      </div>
+
+      </div>
+
+      <div id="panel" class="leftBox">
+          <ul class="list-unstyled">
+          
+            <br/>
+            <li><button class="btn btn-success fully " id="select_mode" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-2x fa-mouse-pointer" aria-hidden="true"></i></button></li>
+            <br/>
+            <li>
+            <button class="btn btn-light shadow fully " style="margin-bottom:0px" id="line_mode" data-toggle="tooltip" data-placement="right" title="Make walls">WALL</button>
+            <button class="mt-2 btn btn-light shadow fully " style="margin-bottom:0px" id="partition_mode" data-toggle="tooltip" data-placement="right" title="Make partitions wall">PARTITION</button>
+            <div class="funkyradio"  style="font-size:0.8em">
+              <div class="funkyradio-success">
+                <input type="checkbox" id="multi" checked/>
+                <label for="multi">MULTIPLE</label>
+              </div>
+            </div>
+            </li>
+            <br/>
+            <div id="door_list"  class="list-unstyled sub" style="box-shadow:2px 2px 3px #ccc;display:none;background:#fff;border-radius: 0 5px 5px 0; padding:10px;position:absolute;left:200px;width:150px">
+              <button class="btn fully door" id="aperture">Aperture</button>
+              <button class="btn fully door" id="simple">Simple</button>
+              <button class="btn fully door" id="double">Double</button>
+              <button class="btn fully door" id="pocket">Pocket</button>
+            </div>
+            <li><button class="btn btn-light shadow fully " id="door_mode" onclick="$('.sub').hide();$('#door_list').toggle(200);$('#window_list').hide();">DOOR</button></li>
+
+            <div id="window_list"  class="list-unstyled sub" style="box-shadow:2px 2px 3px #ccc;display:none;background:#fff;border-radius: 0 5px 5px 0; padding:10px;position:absolute;left:200px;width:150px">
+              <button class="btn fully window" id="fix">Fix</button>
+              <button class="btn fully window" id="flap">Simple</button>
+              <button class="btn fully window" id="twin">Double</button>
+              <button class="btn fully window" id="bay">Slide</button>
+            </div>
+            <li><button class="btn btn-light shadow fully " id="window_mode" onclick="$('.sub').hide();$('#window_list').toggle(200);$('#door_list').hide()">WINDOW</button></li>
+            <li><button class="btn btn-light shadow fully " id="print" onclick="capture()">TO PDF</button></li>
+          <div style="clear:both"></div>
+        </ul>
+      </div>
+
+      <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              
+              <h4 class="modal-title" id="myModalLabel">Welcome To Floor Planner </h4>
+            </div>
+            <div class="modal-body m-2">
+              <h2>By Salman Almanaseer</h2>
+              <p>Software Engineering</p>
+              <hr>
+              <div>
+              <h1>Instructions</h1>
+              <p>Click on wall to build outer/Main wall</p>
+              <p>Click on partition to create inner rooms</p>
+              <p>Click on the Select Icon and drag a wall to resize</p>
+              </div>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-light shadow" data-dismiss="modal">CLOSE</button>
+              <button type="button" class="btn btn-primary">YES</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+ 
+  <div style="position:absolute;bottom:10px;left:210px;font-size:1.5em;color:#08d" id="boxinfo">
+  </div>
+
+  <div id="moveBox" style="position:absolute;right:-150px;top:10px;color:#08d;background:transparent;z-index:2;text-align:center;transition-duration: 0.2s;transition-timing-function: ease-in;">
+    <div class="pull-right" style="margin:10px">
+    <p style="margin:0"><button class="btn btn-xs btn-info zoom" data-zoom="zoomtop" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-arrow-up" aria-hidden="true"></i></button></p>
+    <p style="margin:0">
+      <button class="btn btn-xs btn-info zoom" data-zoom="zoomleft" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+      <button class="btn btn-xs btn-light shadow zoom" data-zoom="zoomreset" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-arrows-to-eye" aria-hidden="true"></i></button>
+      <button class="btn btn-xs btn-info zoom" data-zoom="zoomright" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+    </p>
+    <p style="margin:0"><button class="btn btn-xs btn-info zoom" data-zoom="zoombottom" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></p>
+    </div>
+  </div>
+
+  <div id="zoomBox" style="position:absolute;z-index:100;right:-150px;bottom:20px;text-align:center;background:transparent;padding:0px;color:#fff;transition-duration: 0.2s;transition-timing-function: ease-in;">
+    <div class="pull-right" style="margin-right:10px">
+      <button class="btn btn btn-light shadow zoom" data-zoom="zoomin" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button class="btn btn btn-light shadow zoom" data-zoom="zoomout" style="box-shadow:2px 2px 3px #ccc;"><i class="fa fa-minus" aria-hidden="true"></i></button>
+    </div>
+    <div style="clear:both"></div>
+      <div id="scaleVal"  class="pull-right"  style="box-shadow:2px 2px 3px #ccc;width:60px;height:20px;background:#4b79aa;border-radius:4px;margin-right:10px">
+        1m
+      </div>
+
+      <div style="clear:both"></div>
+  </div>
+</body>
+  <script src="jquery.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="mousewheel.js"></script>
+  <script src="func.js"></script>
+  <script src="qSVG.js"></script>
+  <script src="editor.js"></script>
+  <script src="engine.js"></script>
+  <script src="print.js"></script>
+  <script>
+   
+  function capture()
+  {
+    //window.print();
+    printJS('toprint', 'html');  
+  }
+
+   
+    
+  </script>
+</html>
